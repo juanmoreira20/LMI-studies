@@ -1,2 +1,3 @@
 # LMI-studies
-Estudos baseado no uso de LMI's para resolver problemas de controle, utilizando ferramentas como Yalmip e SeDumi 
+My studies on using Linear Matrix Inequalities to solve control problems
+Most of the exersices will be taken from "LMIs in Control Systems: Analysis, Design and Applications" -  Guang-Ren Duan (Author), Hai-Hua Yu (Author)
