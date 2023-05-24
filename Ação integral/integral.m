@@ -21,11 +21,11 @@ options = sdpsettings('solver','sedumi');
 optimize(LMI,[],options)
 Qv = value(Q);
 Nv = value(N);
-%ganho
+%ganho aumentado
 Ka =  Nv*inv(Qv);
 
-% Feedback Gain
+% ganho malha fechada
 K = Ka(1:size(A,1));
-% Integral gain
+% ganho integral
 H = Ka(size(A,1)+1:end);
-Tsim = 30;
+Tsim = 40;
