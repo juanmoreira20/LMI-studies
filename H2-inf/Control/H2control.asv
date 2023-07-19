@@ -1,0 +1,32 @@
+clear all; close all; clc;
+
+A = [-3, -2, 1;
+     1,2, -1 ;
+     1, -1, -1];
+B1 = [2, 0;
+    0, 2;
+    0, 1];
+B2 = [3, 0, 1]';
+C = [1, 0, 1;
+    0 1];
+D1 = [1, 1];
+D2 = 0.05;
+[aux,n] = size(A);
+[aux,m] = size(B1);
+[q,aux] = size(C);
+rho = sdpvar(1,1);
+X = sdpvar(n,n);
+W = sdpvar(m,n);
+Z = sdpvar(q,q);
+
+a11 = -Z;
+a12 = C*X + D*W;
+a21 = a12';
+a22 = -X;
+LMI2 = [a11, a12;
+        a21, a22];
+LMI1 = A*X + B1*W + ( A*X + B1*W) + B2*B2';
+LMI = [LMI1 <= 0; LMI2 <= 0; trace(Z) < rho];
+options = sdpsettings('solver','mosek');
+optimize(LMI,rho,options)
+C = checkset(LMI)
