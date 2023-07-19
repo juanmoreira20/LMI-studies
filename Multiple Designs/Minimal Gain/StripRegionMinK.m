@@ -1,0 +1,20 @@
+clc; close all; clear;
+A = [-0.5 0 1;
+      0 -2 0;
+      0  0 -5];
+B = [5 3; 6 5; 7 6];
+C = [2 -2 1];
+[~,n] = size(A);
+[~,m]= size(B);
+P = sdpvar(n,n,'symmetric');
+W = sdpvar(n,m);
+K = sdpvar(2,1);
+gamma = sdpvar(1,1);
+alphamax =-1;
+alphamin =-5;
+%LMI = [P*A+A'*P+W*B+B'*W'+ 2*alphamax*P<=0,P*A+A'*P+W*B+B'*W'+ 2*alphamin*P>=0 , P>=0];
+LMI1 = [-gamma*eye(2), K;
+       K', -gamma*eye(1)];
+LMI = [LMI1 <=0, 2*alphamin*eye(3) <= (A+B*K*C) + (A+B*K*C)'  <= 2*alphamax*eye(3)];
+options = sdpsettings('solver','mosek');
+optimize(LMI,gamma,options)
