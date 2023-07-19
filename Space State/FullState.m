@@ -15,8 +15,10 @@ A = [-0.5 0 0;
       0  1 -2];
 B = [1 0; -2 2; 0 1];
 C = [1 0 0; 0 0 1];
-P = sdpvar(3,3,'symmetric');
-W = sdpvar(3,2);
+[~,n] = size(A);
+[~,m]= size(B);
+P = sdpvar(n,n,'symmetric');
+W = sdpvar(n,m);
 LMI = [P*A+A'*P+W*C+C'*W'<=0, P>=0];
 options = sdpsettings('solver','mosek');
 optimize(LMI,[],options)
