@@ -1,3 +1,7 @@
+clear;
+close all;
+clc;
+
 % Xb. = A*Xb + B*u + L(yb - y)
 % Xb. = A*Xb + B*u + L*C*Xb - L*C*X
 % X.  = A*X +  B*u 
